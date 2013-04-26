@@ -1,17 +1,32 @@
 jQuery(function($) {
+
+
   var ft;
-  var paper = new Raphael(document.getElementById('canvas_container'), 500, 500);
+  var paper = Raphael(document.getElementById('canvas_container'), 630, 444);
   var selected;
   var elements = paper.set();
-  var circle1 = paper.circle(250, 250, 60).attr({fill: '#000'});
-  elements.push(circle1);
-  elements.push(paper.text(350, 250, 'My\nMood').attr({fill: '#F00'}));
-  elements.push(paper.circle(0, 250, 60).attr({fill: '#007'}));
-  elements.forEach(function(element) {
-    element.node.classList.add('editable');
+  var background = paper.rect(0,0,630,444).attr({fill: 'url("img/texture.png")'});
+  var photo = paper.image("img/cute-baby.jpg", 10, 10, 350, 350);
+  var font = 'impact';
+  var fillColor = '#666';
+  var strokeColor = '#000';
+
+//  paper.registerSvgFont('impact', '../fonts/IMPACT.TTF');
+  // var text = paper.text(490, 150, 'C\'EST\nENCORE\nUN\nGARCON' ).attr({fill: '#000','font-family' : 'TimesNewRoman', 'font-size': '55px', 'text-shadow' : '2px 2px #ff0000'});
+  elements.push(photo);
+  // elements.push(text);
+  elements.push(paper.text(490, 50, 'C\'EST' ).attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(2, 1));
+  elements.push(paper.text(490, 125, 'ENCORE' ).attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(1.4, 1));
+  elements.push(paper.text(490, 200, 'UN GAR\u00C7ON' ).attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(0.95, 1));
+  elements.push(paper.text(490, 400, 'REMY').attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(1.75, 1));
+  elements.push(paper.text(180, 400, 'N\u00E9 le 26 avril 2013, 15kg, 55cm').attr({fill: '#000', 'font-family' : font, 'font-size': '25px'}));
+  elements.forEach(function(element){
+    element.node.classList.add('movable');
   });
-  // not editable
-  elements.push(paper.text(250, 150, 'I\'m not editable').attr({fill: '#F00'}));
+  // not movable
+  elements.push(paper.text(490, 300, '~').attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '100px'}));
+
+
 
   var getRaphaelElement = function(element) {
     var raphaelId;
@@ -29,7 +44,7 @@ jQuery(function($) {
   var selectElement = function(e) {
     if (selected !== undefined) {
       $(selected.node).trigger('unselect');
-    } 
+    }
     var rafel = getRaphaelElement(this);
     selected = rafel;
     rafel.node.classList.add('selected');
@@ -54,9 +69,9 @@ jQuery(function($) {
       'stroke-width': currentAttrs['stroke-width']
     });
     rafel.attr({
-      stroke: '#ff0',
+      stroke: '#00f',
       'stroke-dasharray': "-.",
-      'stroke-width': 3
+      'stroke-width': '0.02em'
     });
     e.stopPropagation();
   };
@@ -67,17 +82,17 @@ jQuery(function($) {
   };
 
   var unselectAll = function(e) {
-    if (!e.target.classList.contains('editable') && ft) {
+    if (!e.target.classList.contains('movable') && ft) {
       $(selected.node).trigger('unselect');
     }
   };
 
   var enableSelection = function() {
-    $('#canvas_container svg').on('click', '.editable, .editable tspan', selectElement);
-    $('#canvas_container svg').on('mouseover', '.editable', revealSelectableElement);
-    $('#canvas_container svg').on('mouseout', '.editable', blurSelectableElement);
-    $('#canvas_container svg').on('unselect', '.editable', unselectElement);
-    $('#canvas_container svg').on('click', unselectAll);  
+    $('#canvas_container svg').on('click', '.movable, .movable tspan', selectElement);
+    $('#canvas_container svg').on('mouseover', '.movable', revealSelectableElement);
+    $('#canvas_container svg').on('mouseout', '.movable', blurSelectableElement);
+    $('#canvas_container svg').on('unselect', '.movable', unselectElement);
+    $('#canvas_container svg').on('click', unselectAll);
   };
 
   var disableSelection = function() {
@@ -86,10 +101,14 @@ jQuery(function($) {
     $('#canvas_container svg').unbind('mouseover', revealSelectableElement);
     $('#canvas_container svg').unbind('mouseout', blurSelectableElement);
     $('#canvas_container svg').unbind('unselect', unselectElement);
-    $('#canvas_container svg').unbind('click', unselectAll);  
+    $('#canvas_container svg').unbind('click', unselectAll);
   };
 
   $('#arrow').click(enableSelection);
   $('#foo').click(disableSelection);
   enableSelection();
+
+  window.onUnload = function(){
+   paper.clear();
+  };
 });
