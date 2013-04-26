@@ -7,19 +7,17 @@ jQuery(function($) {
   var elements = paper.set();
   var background = paper.rect(0,0,630,444).attr({fill: 'url("img/texture.png")'});
   var photo = paper.image("img/cute-baby.jpg", 10, 10, 350, 350);
-  var font = 'impact';
+  var font = 'Lobster Two';
   var fillColor = '#666';
-  var strokeColor = '#000';
-
-//  paper.registerSvgFont('impact', '../fonts/IMPACT.TTF');
-  // var text = paper.text(490, 150, 'C\'EST\nENCORE\nUN\nGARCON' ).attr({fill: '#000','font-family' : 'TimesNewRoman', 'font-size': '55px', 'text-shadow' : '2px 2px #ff0000'});
+  var strokeColor = '#000';  
   elements.push(photo);
-  // elements.push(text);
-  elements.push(paper.text(490, 50, 'C\'EST' ).attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(2, 1));
-  elements.push(paper.text(490, 125, 'ENCORE' ).attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(1.4, 1));
-  elements.push(paper.text(490, 200, 'UN GAR\u00C7ON' ).attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(0.95, 1));
-  elements.push(paper.text(490, 400, 'REMY').attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '55px'}).scale(1.75, 1));
-  elements.push(paper.text(180, 400, 'N\u00E9 le 26 avril 2013, 15kg, 55cm').attr({fill: '#000', 'font-family' : font, 'font-size': '25px'}));
+  elements.push(paper.circle(430, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
+  elements.push(paper.circle(490, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
+  elements.push(paper.circle(550, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
+  elements.push(paper.text(490, 50, 'C\'EST' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).transform('m1.516,0,0,1,-253.8498,71'));
+  elements.push(paper.text(490, 125, 'ENCORE' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).transform('m0.9909,0,0,0.5116,-0.5354,92.0501'));
+  elements.push(paper.text(490, 200, 'UN GAR\u00C7ON' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).transform('m0.6206,0,0,0.6709,183.8925,53.8888'));
+  elements.push(paper.text(320, 400, 'R\u00E9mi est n\u00E9 le 26 avril 2013 \u00E0 2h37. 15kg, 55cm').attr({fill: '#000', 'font-family' : font, 'font-size': '25px'}));
   elements.forEach(function(element){
     element.node.classList.add('movable');
   });
