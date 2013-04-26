@@ -63,13 +63,13 @@ jQuery(function($) {
     var currentAttrs = rafel.attr();
     rafel.data('savedAttributes', {
       stroke: currentAttrs.stroke,
-      'stroke-dasharray': currentAttrs['stroke-dasharray'],
+      cursor: currentAttrs.cursor,
       'stroke-width': currentAttrs['stroke-width']
     });
     rafel.attr({
       stroke: '#00f',
-      'stroke-dasharray': "-.",
-      'stroke-width': '0.02em'
+      cursor: 'default',
+      'stroke-width': '1px'
     });
     e.stopPropagation();
   };
@@ -103,7 +103,18 @@ jQuery(function($) {
   };
 
   $('#arrow').click(enableSelection);
-  $('#foo').click(disableSelection);
+  $('#insert_rect').click(function() {
+    var rect = paper.rect(250, 250, 100, 100).attr({ fill: '#EDC387'});
+    rect.node.classList.add('movable');
+    elements.push(rect);
+    $(rect.node).trigger('click');
+  });
+    $('#insert_circle').click(function() {
+    var rect = paper.circle(250, 250, 100).attr({ fill: '#EDC387'});
+    rect.node.classList.add('movable');
+    elements.push(rect);
+    $(rect.node).trigger('click');
+  });
   enableSelection();
 
   window.onUnload = function(){
