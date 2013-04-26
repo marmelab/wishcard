@@ -14,15 +14,15 @@ jQuery(function($) {
   elements.push(paper.circle(430, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
   elements.push(paper.circle(490, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
   elements.push(paper.circle(550, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
-  elements.push(paper.text(490, 50, 'C\'EST' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).transform('m1.516,0,0,1,-253.8498,71'));
-  elements.push(paper.text(490, 125, 'ENCORE' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).transform('m0.9909,0,0,0.5116,-0.5354,92.0501'));
-  elements.push(paper.text(490, 200, 'UN GAR\u00C7ON' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).transform('m0.6206,0,0,0.6709,183.8925,53.8888'));
+  elements.push(paper.text(490, 120, 'C\'EST' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).transform('m1.516,0,0,1,-253.8498,0'));
+  elements.push(paper.text(490, 180, 'ENCORE' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).scale(1, 1.5));
+  elements.push(paper.text(490, 235, 'UN GAR\u00C7ON' ).attr({fill: fillColor, 'font-family' : font, 'font-size': '55px'}).scale(0.65, 1));
   elements.push(paper.text(320, 400, 'R\u00E9mi est n\u00E9 le 26 avril 2013 \u00E0 2h37. 15kg, 55cm').attr({fill: '#000', 'font-family' : font, 'font-size': '25px'}));
   elements.forEach(function(element){
     element.node.classList.add('movable');
   });
   // not movable
-  elements.push(paper.text(490, 300, '~').attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '100px'}));
+  elements.push(paper.text(490, 320, '~').attr({fill: fillColor, stroke: strokeColor,'font-family' : font, 'font-size': '100px'}));
 
 
 
