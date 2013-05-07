@@ -49,7 +49,7 @@ _.extend(Backbone.LocalStorage.prototype, {
     this.localStorage().setItem(this.name, this.records.join(","));
   },
 
-  // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
+  // Add a models, giving it a (hopefully)-unique GUID, if it doesn't already
   // have an id of it's own.
   create: function(model) {
     if (!model.id) {
@@ -62,7 +62,7 @@ _.extend(Backbone.LocalStorage.prototype, {
     return this.find(model);
   },
 
-  // Update a model by replacing its copy in `this.data`.
+  // Update a models by replacing its copy in `this.data`.
   update: function(model) {
     this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
     if (!_.include(this.records, model.id.toString()))
@@ -70,7 +70,7 @@ _.extend(Backbone.LocalStorage.prototype, {
     return this.find(model);
   },
 
-  // Retrieve a model from `this.data` by id.
+  // Retrieve a models from `this.data` by id.
   find: function(model) {
     return this.jsonData(this.localStorage().getItem(this.name+"-"+model.id));
   },
@@ -85,7 +85,7 @@ _.extend(Backbone.LocalStorage.prototype, {
       .value();
   },
 
-  // Delete a model from `this.data`, returning it.
+  // Delete a models from `this.data`, returning it.
   destroy: function(model) {
     if (model.isNew())
       return false
@@ -127,7 +127,7 @@ _.extend(Backbone.LocalStorage.prototype, {
 
 });
 
-// localSync delegate to the model or collection's
+// localSync delegate to the models or collection's
 // *localStorage* property, which should be an instance of `Store`.
 // window.Store.sync and Backbone.localSync is deprecated, use Backbone.LocalStorage.sync instead
 Backbone.LocalStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options) {
