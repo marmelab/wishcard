@@ -85,7 +85,7 @@ define([
 			this.elements.push(this.paper.text(490, 235, 'UN GAR\u00C7ON' ).attr({fill: fillColor, 'font-family' : this.font, 'font-size': '55px'}).scale(0.65, 1));
 			this.elements.push(this.paper.text(320, 400, 'R\u00E9mi est n\u00E9 le 26 avril 2013 \u00E0 2h37. 15kg, 55cm').attr({fill: '#000', 'font-family' : this.font, 'font-size': '25px'}));
 			this.elements.forEach(function(element){
-				element.node.classList.add('movable');
+				element.node.setAttribute('class', 'movable');
 			});
 			// not movable
 			this.elements.push(this.paper.text(490, 320, '~').attr({fill: fillColor, stroke: strokeColor,'font-family' : this.font, 'font-size': '100px'}));
@@ -236,7 +236,10 @@ define([
 
 			var self = this;
 			var element = this.getRaphaelElement(e.target);
-			this.ft.hideHandles();
+
+			if(this.ft){
+				this.ft.hideHandles();
+			}
 
 			var textEditing = this.paper.inlineTextEditing(element);
 			var input = textEditing.startEditing();

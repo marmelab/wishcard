@@ -22,23 +22,18 @@ define(['underscore','backbone', 'models/Shape', 'backbone-localStorage'], funct
 
 		addRaphaelElement: function(element, cb){
 			var self = this;
+			var data = {
+					attributes    : element.attrs,
+					type          : element.type,
+					classList     : element.node.classList ? Array.prototype.slice.call(element.node.classList) : '',
+					transform     : element.transform || {}
+			};
 
-			var shape = new Shape({
-						attributes    : element.attrs,
-						type          : element.type,
-						classList     : Array.prototype.slice.call(element.node.classList),
-						transform     : element.transform || {}
-			});
+			var shape = new Shape(data);
 
 			this.add(shape);
 
-			shape.save({
-				attributes  : element.attrs,
-				ordering    : self.length - 1,
-				type        : element.type,
-				classList   : Array.prototype.slice.call(element.node.classList),
-				transform   : element.transform || {}
-			}, {
+			shape.save(data, {
 				success: function(model){
 					cb(null, model);
 				},
