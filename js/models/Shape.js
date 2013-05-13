@@ -5,7 +5,8 @@ define(['underscore','backbone'], function(_, Backbone){
 			attributes      : {},
 			type            : null,
 			classList       : [],
-			transform       : null
+			transform       : null,
+			ordering        : 0
 		},
 
 		initialize: function Shape(){
@@ -13,7 +14,8 @@ define(['underscore','backbone'], function(_, Backbone){
 
 			this.url = function(){
 				return 'shape/' + self.id;
-			}
+			};
+
 		}
 	});
 

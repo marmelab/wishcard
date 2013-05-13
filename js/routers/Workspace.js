@@ -3,6 +3,7 @@ define(['views/ShapesView'], function(ShapesView){
 		shapesView: null,
 
 		initialize: function(){
+			// Create shapes view
 			this.shapesView = new ShapesView();
 		}
 	});

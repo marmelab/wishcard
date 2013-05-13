@@ -6,13 +6,32 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href='http://fonts.googleapis.com/css?family=Chicle|Lobster+Two:400,700' rel='stylesheet' type='text/css'>
         <style type="text/css">
-            #canvas_container {  
+            #canvas_container {
+                position: relative;
                 width: 630px;
                 height: 444px;
                 border: 1px solid #aaa;
                 padding: 0px;
                 margin: 0px;
-            } 
+            }
+
+            input[type="text"],
+            input[type="text"]:hover,
+            input[type="text"]:active,
+            input[type="text"]:focus {
+              padding: 0;
+              margin: 0;
+              border: none;
+              background: none;
+
+              outline:0px !important;
+              -webkit-appearance:none;
+              -webkit-box-shadow:none;
+              box-shadow: none;
+              -webkit-transition: none;
+              transition: none;
+              -webkit-border-radius: none;
+            }
         </style>  
     </head>
     <body>
@@ -26,7 +45,9 @@
                 <button class="btn" id="arrow"><img src="img/arrow.png"></button>
                 <button class="btn" id="insert_rect"><i class="icon-stop"></i></button> 
                 <button class="btn" id="insert_circle">o</button>
-                <button class="btn" id="insert_text">T</button>
+                <button class="btn" id="insert_text"><i class="icon-font"></i></button>
+                <button class="btn" id="move_background"><i class="icon-arrow-down"></i></button>
+                <button class="btn" id="move_foreground"><i class="icon-arrow-up"></i></button>
               <!--
               <button class="btn" id="move_closer">closer</button>
               <button class="btn" id="move_farther">farther</button>

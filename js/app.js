@@ -1,16 +1,17 @@
 require.config({
 	baseUrl: "js/",
 	paths: {
-		jquery                  : 'libs/jquery-2.0.0',
-		underscore              : 'libs/underscore-min',
-		'backbone-localStorage' : 'libs/backbone.localStorage',
-		backbone                : 'libs/backbone-min',
-		eve                     : 'libs/raphael/eve',
-		'raphael-core'          : 'libs/raphael/raphael.core',
-		'raphael-svg'           : 'libs/raphael/raphael.svg',
-		'raphael-vml'           : 'libs/raphael/raphael.vml',
-		raphael                 : 'libs/raphael/raphael.amd',
-		'raphael-freeTransform' : 'libs/raphael.free_transform'
+		jquery                        : 'libs/jquery-2.0.0',
+		underscore                    : 'libs/underscore-min',
+		'backbone-localStorage'       : 'libs/backbone.localStorage',
+		backbone                      : 'libs/backbone-min',
+		eve                           : 'libs/raphael/eve',
+		'raphael-core'                : 'libs/raphael/raphael.core',
+		'raphael-svg'                 : 'libs/raphael/raphael.svg',
+		'raphael-vml'                 : 'libs/raphael/raphael.vml',
+		raphael                       : 'libs/raphael/raphael.amd',
+		'raphael-freeTransform'       : 'libs/raphael.free_transform',
+		'raphael-inline_text_editing' : 'libs/raphael.inline_text_editing'
 	},
 	shim: {
 		'underscore': {
@@ -25,13 +26,16 @@ require.config({
 		},
 		'raphael-freeTransform': {
 			deps: ['raphael']
+		},
+		'raphael-inline_text_editing': {
+			deps: ['jquery','raphael']
 		}
 	}
 });
 
 require(['jquery', 'backbone', 'routers/Workspace'], function($, Backbone, Workspace){
 	$(function(){
+		// Initiate main router
 		var app = new Workspace();
-		Backbone.history.start();
 	});
 });
