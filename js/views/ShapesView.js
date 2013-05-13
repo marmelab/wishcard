@@ -77,7 +77,7 @@ define([
 			var fillColor = '#666';
 			var strokeColor = '#000';
 			this.elements.push(photo);
-			this.elements.push(this.paper.circle(430, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'})).translate(12, 24);
+			this.elements.push(this.paper.circle(430, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
 			this.elements.push(this.paper.circle(490, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
 			this.elements.push(this.paper.circle(550, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
 			this.elements.push(this.paper.text(490, 120, 'C\'EST' ).attr({fill: fillColor, 'font-family' : this.font, 'font-size': '55px'}).scale(1.5, 0.8));
