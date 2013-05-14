@@ -16,7 +16,7 @@ define([
 		ft          : null,
 		textEditing : null,
 		selected    : null,
-		font        : 'Lobster Two',
+		font        : 'Lobster two',
 		mouse       : {x: 0, y:0},
 
 		events: {
@@ -80,15 +80,15 @@ define([
 			this.elements.push(this.paper.circle(430, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
 			this.elements.push(this.paper.circle(490, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
 			this.elements.push(this.paper.circle(550, 50, 15).attr({ 'stroke-width': 0, fill: '#EDC387'}));
-			this.elements.push(this.paper.text(490, 120, 'C\'EST' ).attr({fill: fillColor, 'font-family' : this.font, 'font-size': '55px'}).scale(1.5, 0.8));
-			this.elements.push(this.paper.text(490, 180, 'ENCORE' ).attr({fill: fillColor, 'font-family' : this.font, 'font-size': '55px'}).scale(1, 1.5));
-			this.elements.push(this.paper.text(490, 235, 'UN GAR\u00C7ON' ).attr({fill: fillColor, 'font-family' : this.font, 'font-size': '55px'}).scale(0.65, 1));
-			this.elements.push(this.paper.text(320, 400, 'R\u00E9mi est n\u00E9 le 26 avril 2013 \u00E0 2h37. 15kg, 55cm').attr({fill: '#000', 'font-family' : this.font, 'font-size': '25px'}));
+			this.elements.push(this.paper.text(490, 120, 'C\'EST' ).attr({'text-anchor': 'start',fill: fillColor, 'font-family' : 'Verdana', 'font-size': '55px'}).transform(['S', 1, 0.8, 'T', -80, 0]));
+			this.elements.push(this.paper.text(490, 180, 'ENCORE' ).attr({'text-anchor': 'start',fill: fillColor, 'font-family' : 'Verdana', 'font-size': '55px'}).transform(['S', 0.7, 1.5, 'T', -115, 0]));
+			this.elements.push(this.paper.text(490, 235, 'UN GAR\u00C7ON' ).attr({'text-anchor': 'start',fill: fillColor, 'font-family' : 'Verdana', 'font-size': '55px'}).transform(['S', 0.48, 1.3, 'T', -170, 10]));
+			this.elements.push(this.paper.text(320, 400, 'R\u00E9mi est n\u00E9 le 26 avril 2013 \u00E0 2h37. 15kg, 55cm').attr({'text-anchor': 'start',fill: '#000', 'font-family' : 'Verdana', 'font-size': '25px'}).transform(['S', 0.7, 1, 'T', -300, 0]));
 			this.elements.forEach(function(element){
 				element.node.setAttribute('class', 'movable');
 			});
 			// not movable
-			this.elements.push(this.paper.text(490, 320, '~').attr({fill: fillColor, stroke: strokeColor,'font-family' : this.font, 'font-size': '100px'}));
+			this.elements.push(this.paper.text(490, 350, '~').attr({fill: fillColor, stroke: strokeColor,'font-family' : this.font, 'font-size': '100px'}));
 
 			// Add background first
 			var currentElement  = 0;
@@ -133,6 +133,7 @@ define([
 					currentElement++;
 					saveDefaults();
 				});
+
 			})();
 		},
 
@@ -186,7 +187,7 @@ define([
 
 		addText : function(){
 			var element = this.paper.text(250, 250, 'Some text ...').attr({ fill: '#EDC387'});
-			element.attr({fill: '#000', 'font-family' : this.font, 'font-size': '25px'});
+			element.attr({fill: '#000', 'font-family' : 'Verdana', 'font-size': '25px'});
 			element.attr({'text-anchor': 'start'});
 
 			element.node.classList.add('movable');
