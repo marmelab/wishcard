@@ -9,7 +9,7 @@ define([
 	'models/Shape'
 ], function($, _, Backbone, Raphael, RaphaelFt, RaphaelTextEdit, Shapes, Shape){
 	var ShapesView = Backbone.View.extend({
-		el          : $('#editor'),
+		el          : '#editor',
 		paper       : null,
 		shapes      : null,
 		elements    : null,
@@ -57,7 +57,7 @@ define([
 			});
 
 			// Add default elements
-			if(this.shapes.models.length == 0){
+			if(this.shapes.isEmpty()){
 				this.addDefaultElements();
 			}
 
@@ -65,7 +65,9 @@ define([
 			$(document).mousemove(function(e) {
 				self.mouse.x = e.pageX - $('#canvas_container').position().left;
 				self.mouse.y = e.pageY - $('#canvas_container').position().top;
-			})
+			});
+
+			return this;
 		},
 
 		addDefaultElements : function(){
@@ -99,7 +101,7 @@ define([
 			// Store all elements
 			(function saveDefaults(){
 				if(currentElement == nbElements){
-					return;
+					return self;
 				}
 
 				var element = elementsToStore[currentElement];
@@ -125,16 +127,17 @@ define([
 				};
 
 				// Save the default element
-				self.shapes.addRaphaelElement(element, function(err, element){
-					if(err){
-						return console.err(err);
-					}
-
-					currentElement++;
-					saveDefaults();
-				});
-
+				self.shapes.addRaphaelElement(element)
+						.done(function(model){
+							currentElement++;
+							saveDefaults();
+						})
+						.fail(function(error){
+							console.err(error);
+						});
 			})();
+
+			return this;
 		},
 
 		drawShape: function(model){
@@ -169,6 +172,8 @@ define([
 				ft.apply();
 				ft.unplug();
 			}
+
+			return this;
 		},
 
 		addRect: function(){
@@ -176,6 +181,8 @@ define([
 			element.node.classList.add('movable');
 
 			this.saveShape(element);
+
+			return this;
 		},
 
 		addCircle: function(){
@@ -183,6 +190,8 @@ define([
 			element.node.classList.add('movable');
 
 			this.saveShape(element);
+
+			return this;
 		},
 
 		addText : function(){
@@ -193,41 +202,50 @@ define([
 			element.node.classList.add('movable');
 
 			this.saveShape(element);
+
+			return this;
 		},
 
 		saveShape: function(element){
 			var self = this;
 
-			this.shapes.addRaphaelElement(element, function(err, model){
-				if(err){
-					return console.log(err);
-				}
+			this.shapes.addRaphaelElement(element)
+				.done(function(model){
+					self.drawShape(model);
 
-				self.drawShape(model.attributes);
-				element.remove();
-			});
+					element.remove();
+				})
+				.fail(function(error){
+					console.err(error);
+				});
+
+			return this;
 		},
 
 		moveToForeground : function(){
 			if (this.selected == null) {
-				return;
+				return this;
 			}
 
 			this.shapes.changeShapesOrder($(this.selected.node).attr('data-id'), true);
 
 			this.selected.toFront();
 			this.saveCurrentShape();
+
+			return this;
 		},
 
 		moveToBackground : function(){
 			if (this.selected == null) {
-				return;
+				return this;
 			}
 
 			this.shapes.changeShapesOrder($(this.selected.node).attr('data-id'), false);
 
 			this.selected.toBack();
 			this.saveCurrentShape();
+
+			return this;
 		},
 
 		editText: function(e){
@@ -250,7 +268,9 @@ define([
 
 				self.saveCurrentShape();
 				self.onShapeUnselected();
-			})
+			});
+
+			return this;
 		},
 
 		selectElement : function(e) {
@@ -267,11 +287,13 @@ define([
 			this.blurSelectableElement(element);
 
 			e.stopPropagation();
+
+			return this;
 		},
 
 		unselectElement : function(e) {
 			if(!this.selected){
-				return;
+				return this;
 			}
 
 			var bbox = this.selected._getBBox();
@@ -282,23 +304,25 @@ define([
 
 			if(this.mouse.x > x && this.mouse.x < x + width
 					&& this.mouse.y > y && this.mouse.y < y + height){
-				return;
+				return this;
 			}
 
 			this.saveCurrentShape();
 			this.onShapeUnselected();
+
+			return this;
 		},
 
 		saveCurrentShape: function(){
 			if(this.selected == null){
-				return;
+				return this;
 			}
 			var shapeId = $(this.selected.node).attr('data-id');
 
 			// Update shape attributes
 			var shape                   = this.shapes.get(shapeId);
 			if(!shape){
-				return;
+				return this;
 			}
 
 			shape.attributes.attributes = this.selected.attrs;
@@ -310,21 +334,25 @@ define([
 			};
 
 			shape.save();
+
+			return this;
 		},
 
 		onShapeUnselected : function(){
 			if(this.selected == null){
-				return;
+				return this;
 			}
 
 			this.ft.unplug();
 			this.selected.node.classList.remove('selected');
 
 			this.selected = null;
+
+			return this;
 		},
 
 		revealSelectableElement: function(e) {
-			if (e.target.classList.contains('selected')) return;
+			if (e.target.classList.contains('selected')) return this;
 
 			var element = this.getRaphaelElement(e.target);
 			var currentAttrs = element.attr();
@@ -342,17 +370,23 @@ define([
 			});
 
 			e.stopPropagation();
+
+			return this;
 		},
 
 		blurSelectableElement: function(e) {
 			var element = e.matrix ? e : this.getRaphaelElement(e.target);
 			element.attr(element.data('savedAttributes'));
+
+			return this;
 		},
 
 		unselectAll: function(e) {
 			if (!e.target.classList.contains('movable') && this.selected && this.ft) {
 				$(this.selected.node).trigger('unselect');
 			}
+
+			return this;
 		},
 
 		getRaphaelElement: function(element) {

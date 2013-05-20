@@ -7,17 +7,8 @@ define(['underscore','backbone'], function(_, Backbone){
 			classList       : [],
 			transform       : null,
 			ordering        : 0
-		},
-
-		initialize: function Shape(){
-			var self = this;
-
-			this.url = function(){
-				return 'shape/' + self.id;
-			};
-
 		}
-	});
+		});
 
 	return Shape;
 });

@@ -33,9 +33,9 @@ require.config({
 	}
 });
 
-require(['jquery', 'backbone', 'routers/Workspace'], function($, Backbone, Workspace){
+require(['jquery', 'backbone', 'views/ShapesView'], function($, Backbone, ShapesView){
 	$(function(){
-		// Initiate main router
-		var app = new Workspace();
+		// Initiate main view
+		var shapesView = new ShapesView();
 	});
 });

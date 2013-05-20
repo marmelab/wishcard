@@ -5,13 +5,6 @@ define(['underscore','backbone', 'models/Shape', 'backbone-localStorage'], funct
 		localStorage: new Store("shapes"),
 
 		/**
-		 * Initialization : bind all custom methods
-		 */
-		initialize: function(){
-			_.bindAll(this);
-		},
-
-		/**
 		 * Sorting method
 		 * @param model
 		 * @returns Number
@@ -20,7 +13,7 @@ define(['underscore','backbone', 'models/Shape', 'backbone-localStorage'], funct
 			return model.get('ordering');
 		},
 
-		addRaphaelElement: function(element, cb){
+		addRaphaelElement: function(element){
 			var self = this;
 			var data = {
 					attributes    : element.attrs,
@@ -33,14 +26,7 @@ define(['underscore','backbone', 'models/Shape', 'backbone-localStorage'], funct
 
 			this.add(shape);
 
-			shape.save(data, {
-				success: function(model){
-					cb(null, model);
-				},
-				error: function(error){
-					cb(error);
-				}
-			});
+			return shape.save(data);
 		},
 
 		changeShapesOrder: function(currentId, front){
@@ -62,6 +48,8 @@ define(['underscore','backbone', 'models/Shape', 'backbone-localStorage'], funct
 
 				shape.save();
 			});
+
+			return this;
 		}
 	});
 
