@@ -149,6 +149,7 @@ To do so, the Raphael element’s id is set on the DOM element.
 When catching an event, as it returns the DOM element, we can easily get the Raphael element from its id.
 
 ```
+js
 events: {
 	'click circle': onElementClicked
 },
@@ -178,6 +179,7 @@ Although Backbone's collections and Raphael sets allow to handle a group of elem
 A Backbone collection handles Backbone models (allowing saving / updating and retrieving them) and a Raphael set aims to group SVG elements to apply transformations on them directly:
 
 ```
+js
 // Display hat
 var hat = this.paper.set();
 hat.push(
